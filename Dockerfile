@@ -13,7 +13,6 @@ RUN apt update \
 && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \ 
 && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
 && apt update \
-&& apt install nginx -y \
 && apt install --yes --no-install-recommends \
 apache2 \
 php8.1 \
@@ -48,8 +47,8 @@ RUN wget https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0
       && rm glpi-10.0.9.tgz 
 
 #RUN chown -R www-data:www-data /var/www/html/
-RUN rm -r /etc/nginx/sites-enabled/default
-COPY glpi-nginx.conf /etc/nginx/sites-enabled/
+#RUN rm -r /etc/nginx/sites-enabled/default
+#COPY glpi-nginx.conf /etc/nginx/sites-enabled/
 
 #Exposition des ports
 #ENTRYPOINT ["cp -r glpi /var/www/html/ "]
