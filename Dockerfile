@@ -33,7 +33,8 @@ libsasl2-modules-db \
 && rm -rf /var/lib/apt/lists/*
 
 # Copy Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY glpi-nginx.conf /etc/nginx/sites-enabled/
+RUN rm /etc/nginx/sites-enabled/default
 
 # Create a directory for GLPI and copy the GLPI files
 RUN mkdir -p /var/www/html/glpi && \
@@ -42,8 +43,8 @@ RUN mkdir -p /var/www/html/glpi && \
     rm /tmp/glpi.tar.gz && \
     chown -R www-data:www-data /var/www/html/glpi
 
-# Configure PHP-FPM for GLPI
-COPY php-fpm-pool.conf /etc/php/8.0/fpm/pool.d/www.conf
+# Configure PHP-FPM for GLPI#
+#COPY php-fpm-pool.conf /etc/php/8.0/fpm/pool.d/www.conf
 
 # Expose ports
 EXPOSE 80
