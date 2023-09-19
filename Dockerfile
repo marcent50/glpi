@@ -1,57 +1,37 @@
-#On choisit une debian
-FROM debian:11.6
+# Use an official Nginx runtime as the base image
+FROM nginx:latest
 
-LABEL org.opencontainers.image.authors="github@diouxx.be"
+# Install PHP 8-FPM and required extensions
+RUN apt-get update && apt-get install -y \
+    php8.0-fpm \
+    php8.0-mysql \
+    php8.0-gd \
+    php8.0-ldap \
+    php8.0-xmlrpc \
+    php8.0-curl \
+    php8.0-intl \
+    php8.0-apcu \
+    php8.0-zip \
+    php8.0-mbstring \
+    php8.0-json \
+    php8.0-xml \
+    php8.0-imagick
 
+# Copy Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
 
-#Ne pas poser de question à l'installation
-ENV DEBIAN_FRONTEND noninteractive
+# Create a directory for GLPI and copy the GLPI files
+RUN mkdir -p /var/www/html/glpi && \
+    curl -L -o /tmp/glpi.tar.gz https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0.9.tgz && \
+    tar -xzf /tmp/glpi.tar.gz -C /var/www/html/glpi --strip-components=1 && \
+    rm /tmp/glpi.tar.gz && \
+    chown -R www-data:www-data /var/www/html/glpi
 
-#Installation d'apache et de php8.1 avec extension
-RUN apt update \
-&& apt install --yes ca-certificates apt-transport-https lsb-release wget curl \
-&& curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \ 
-&& sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
-&& apt update \
-&& apt install --yes --no-install-recommends \
-apache2 \
-php8.1 \
-php8.1-mysql \
-php8.1-ldap \
-php8.1-xmlrpc \
-php8.1-imap \
-php8.1-curl \
-php8.1-gd \
-php8.1-mbstring \
-php8.1-xml \
-php-cas \
-php8.1-intl \
-php8.1-zip \
-php8.1-bz2 \
-php8.1-redis \
-cron \
-jq \
-libldap-2.4-2 \
-libldap-common \
-libsasl2-2 \
-libsasl2-modules \
-libsasl2-modules-db \
-&& rm -rf /var/lib/apt/lists/*
+# Configure PHP-FPM for GLPI
+COPY php-fpm-pool.conf /etc/php/8.0/fpm/pool.d/www.conf
 
-#Copie et execution du script pour l'installation et l'initialisation de GLPI
-# COPY glpi-start.sh /opt/
-# RUN chmod +x /opt/glpi-start.sh
-WORKDIR /tmp
-RUN wget https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0.9.tgz \
-      && tar zxvf glpi-10.0.9.tgz \
-      && rm glpi-10.0.9.tgz 
+# Expose ports
+EXPOSE 80
 
-#RUN chown -R www-data:www-data /var/www/html/
-#RUN rm -r /etc/nginx/sites-enabled/default
-#COPY glpi-nginx.conf /etc/nginx/sites-enabled/
-
-#Exposition des ports
-#ENTRYPOINT ["cp -r glpi /var/www/html/ "]
-RUN a2enmod rewrite && service apache2 restart && service apache2 stop
-RUN service apache2 start
-EXPOSE 80 
+# Start Nginx and PHP-FPM
+CMD ["nginx", "-g", "daemon off;"]
