@@ -23,7 +23,7 @@ spec:
       containers:
       - name: glpi
         image: marcent/glpi-k8s:latest
-        command: ["cp -r /tmp/ /var/www/html/"]
+        #command: ["cp -r /tmp/ /var/www/html/"]
         env:
         - name: TIMEZONE
           value: "America/Lima"
