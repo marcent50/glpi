@@ -41,7 +41,7 @@ WORKDIR /tmp/
 RUN curl -L -o /tmp/glpi.tar.gz https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0.9.tgz && \
     tar -xzf /tmp/glpi.tar.gz  \
     rm /tmp/glpi.tar.gz && \
-    chown -R www-data:www-data /var/www/html/glpi
+    #chown -R www-data:www-data /var/www/html/glpi
 
 # Configure PHP-FPM for GLPI#
 #COPY php-fpm-pool.conf /etc/php/8.0/fpm/pool.d/www.conf
