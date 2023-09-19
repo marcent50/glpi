@@ -8,6 +8,7 @@ RUN apt update \
 && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
 && apt update \
 && apt install --yes --no-install-recommends \
+&& apt install nginx -y \
 php8.1 \
 php8.1-mysql \
 php8.1-ldap \
