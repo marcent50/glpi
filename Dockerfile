@@ -1,5 +1,5 @@
 # Use an official Nginx runtime as the base image
-FROM nginx:latest
+FROM php8.0-fpm
 
 # Install PHP 8-FPM and required extensions
 
