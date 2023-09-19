@@ -56,7 +56,7 @@ RUN rm /etc/nginx/sites-enabled/default
 
 # Expose ports
 EXPOSE 80
-
+RUN service php8.1-fpm start
 # Start Nginx and PHP-FPM
 CMD ["nginx", "-g", "daemon off;"]
 
