@@ -58,5 +58,5 @@ RUN rm /etc/nginx/sites-enabled/default
 EXPOSE 80
 
 # Start Nginx and PHP-FPM
-#CMD ["nginx", "-g", "daemon off;"]
-CMD ["nginx", "-g", "daemon off;", "&&", "php-fpm"]
+CMD ["nginx", "-g", "daemon off;"]
+
