@@ -54,7 +54,7 @@ spec:
         - containerPort: 80
           name: http
         volumeMounts:
-        - mountPath: /tmp/glpi/
+        - mountPath: /tmp/glpi
           name: glpi-pvc
 
     
