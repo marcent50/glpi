@@ -53,5 +53,5 @@ RUN wget https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0
 #Exposition des ports
 #ENTRYPOINT ["cp -r glpi /var/www/html/ "]
 RUN a2enmod rewrite && service apache2 restart && service apache2 stop
-RUN /usr/sbin/apache2ctl -D FOREGROUND
+RUN service apache2 start
 EXPOSE 80 
