@@ -37,7 +37,6 @@ COPY glpi-nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
 # Create a directory for GLPI and copy the GLPI files
-WORKDIR /tmp/
 RUN mkdir -p /var/www/html/glpi && \
     curl -L -o /tmp/glpi.tar.gz https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0.9.tgz && \
     tar -xzf /tmp/glpi.tar.gz  \
