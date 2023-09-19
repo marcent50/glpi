@@ -19,7 +19,6 @@ spec:
           - name: glpi-pvc
             persistentVolumeClaim:
               claimName: glpi-pvc
-      hostname: glpi
       containers:
       - name: glpi
         image: marcent/glpi-k8s:latest
