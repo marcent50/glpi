@@ -1,5 +1,5 @@
 # Use an official Nginx runtime as the base image
-FROM php8.1-fpm:latest
+FROM debian:11.6
 # Install PHP 8-FPM and required extensions
 
 RUN apt update \
