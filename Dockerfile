@@ -1,6 +1,5 @@
 # Use an official Nginx runtime as the base image
-FROM php8.0-fpm
-
+FROM php8.1-fpm:latest
 # Install PHP 8-FPM and required extensions
 
 RUN apt update \
