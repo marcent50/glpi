@@ -9,7 +9,7 @@ RUN apt update \
 && apt update \
 && apt install --yes --no-install-recommends \
 && apt install nginx -y \
-&& apt instal supervisor -y \
+&& apt install supervisor -y \
 php8.1 \
 php8.1-mysql \
 php8.1-fpm \
