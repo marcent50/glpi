@@ -16,9 +16,9 @@ spec:
         app: glpi
     spec:
       volumes:
-          - name: glpi-claim
+          - name: glpi-pvc
             persistentVolumeClaim:
-              claimName: glpi-claim
+              claimName: glpi-pvc
       hostname: glpi
       containers:
       - name: glpi
@@ -56,6 +56,6 @@ spec:
           name: http
         volumeMounts:
         - mountPath: /var/www/html/
-          name: glpi-claim
+          name: glpi-pvc
 
     
