@@ -50,8 +50,8 @@ RUN wget https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0
 RUN chown -R www-data:www-data /var/www/html/
 RUN rm -r /etc/nginx/sites-enabled/default
 COPY glpi-nginx.conf /etc/nginx/sites-enabled/
-RUN service nginx start
+
 #Exposition des ports
 #ENTRYPOINT ["cp -r glpi /var/www/html/ "]
 
-EXPOSE 80 443
+EXPOSE 80 

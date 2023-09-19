@@ -23,8 +23,8 @@ spec:
       containers:
       - name: glpi
         image: marcent/glpi-k8s:latest
-        command: ["cp -r  /tmp/glpi/ /var/www/html/"]
-        command: ["service nginx start"]
+        # command: ["cp -r  /tmp/glpi/ /var/www/html/"]
+        # command: ["service nginx start"]
         env:
         - name: TIMEZONE
           value: "America/Lima"
