@@ -45,7 +45,7 @@ RUN rm /tmp/glpi.tar.gz
 # Copy Nginx configuration
 COPY glpi-nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
-RUN service php8.1-fpm start
+
 # Create a directory for GLPI and copy the GLPI files
 # Download GLPI archive
 
