@@ -2,7 +2,12 @@
 FROM nginx:latest
 
 # Install PHP 8-FPM and required extensions
-RUN apt-get update && apt-get install -y \
+
+RUN apt install software-properties-common
+RUN add-apt-repository ppa:ondrej/php
+RUN apt update
+RUN apt install php8.0    
+RUN apt-get update && apt-get install -y \    
     php8.0-fpm \
     php8.0-mysql \
     php8.0-gd \
