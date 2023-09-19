@@ -11,6 +11,7 @@ RUN apt update \
 && apt install nginx -y \
 php8.1 \
 php8.1-mysql \
+php8.1-fpm \
 php8.1-ldap \
 php8.1-xmlrpc \
 php8.1-imap \
@@ -32,12 +33,8 @@ libsasl2-modules \
 libsasl2-modules-db \
 && rm -rf /var/lib/apt/lists/*
 
-# Copy Nginx configuration
-COPY glpi-nginx.conf /etc/nginx/sites-enabled/
-RUN rm /etc/nginx/sites-enabled/default
 
-# Create a directory for GLPI and copy the GLPI files
-# Download GLPI archive
+WORKDIR /tmp
 RUN curl -L -o /tmp/glpi.tar.gz https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0.9.tgz
 
 # Extract the archive
@@ -45,6 +42,13 @@ RUN tar -xzf /tmp/glpi.tar.gz
 
 # Remove the downloaded archive
 RUN rm /tmp/glpi.tar.gz
+# Copy Nginx configuration
+COPY glpi-nginx.conf /etc/nginx/sites-enabled/
+RUN rm /etc/nginx/sites-enabled/default
+
+# Create a directory for GLPI and copy the GLPI files
+# Download GLPI archive
+
     #chown -R www-data:www-data /var/www/html/glpi
 
 # Configure PHP-FPM for GLPI#
