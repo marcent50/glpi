@@ -47,7 +47,7 @@ RUN wget https://github.com/glpi-project/glpi/releases/download/10.0.9/glpi-10.0
       && tar zxvf glpi-10.0.9.tgz \
       && rm glpi-10.0.9.tgz 
 
-RUN chown -R www-data:www-data /var/www/html/
+#RUN chown -R www-data:www-data /var/www/html/
 RUN rm -r /etc/nginx/sites-enabled/default
 COPY glpi-nginx.conf /etc/nginx/sites-enabled/
 
