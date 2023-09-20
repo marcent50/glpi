@@ -43,9 +43,6 @@ RUN tar -xzf /tmp/glpi.tar.gz
 
 # Remove the downloaded archive
 RUN rm /tmp/glpi.tar.gz
-RUN chmod 777 -R glpi
-#RUN cp -r glpi /var/www/html/
-#RUN ln -s /tmp /var/www/html/
 # Copy Nginx configuration
 COPY glpi-nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
@@ -65,5 +62,4 @@ EXPOSE 80
 # Start Nginx and PHP-FPM
 #CMD ["nginx", "-g", "daemon off;"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
 
