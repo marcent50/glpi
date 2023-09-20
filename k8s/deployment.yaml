@@ -22,7 +22,6 @@ spec:
       containers:
       - name: glpi
         image: marcent/glpi-k8s:latest
-        #command: ["cp -r  /tmp/glpi /var/www/html/"]
         env:
         - name: TIMEZONE
           value: "America/Lima"
@@ -54,7 +53,5 @@ spec:
         - containerPort: 80
           name: http
         volumeMounts:
-        - mountPath: /var/www/html/glpi
+        - mountPath: /var/www/html/glpi/
           name: glpi-pvc
-
-    
