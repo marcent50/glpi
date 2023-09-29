@@ -1,18 +1,35 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: glpi-ingress
+  name: ingress-glpi
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "issuer-letsencrypt"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.org/location-snippets: |
+                add_header Host             $host;
+                add_header X-Real-IP        $remote_addr;
+                add_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+                add_header X-Forwarded-Proto https;
+                add_header X-Forwarded-Port 443;
+                add_header X-Forwarded-Host $proxy_add_x_forwarded_for;
+                add_header X-Robots-Tag "noindex, nofollow";
 spec:
   tls:
-  - secretName: tls-domain
+  - hosts:
+      - glpi.mmsnetwork.org
+    secretName: glpi-tls-secret
   rules:
-  - host: "glpi.domain.com"
+  - host: glpi.mmsnetwork.org
     http:
       paths:
-      - pathType: ImplementationSpecific
-        backend:
-          service:
-            name: glpi
-            port:
-              name:
-              number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: glpi
+                port:
+                  number: 80
